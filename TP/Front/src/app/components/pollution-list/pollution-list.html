@@ -97,9 +97,12 @@
                     class="btn btn-icon rounded-circle"
                     [class.active-heart]="isFavori(pollution.id)"
                     (click)="toggleFavori(pollution, $event)"
-                    [title]="isFavori(pollution.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'">
+                    [disabled]="!authService.estConnecte()"
+                    [title]="!authService.estConnecte() ? 'Connectez-vous pour ajouter aux favoris' : (isFavori(pollution.id) ? 'Retirer des favoris' : 'Ajouter aux favoris')">
+                    
                     <i class="bi" [class.bi-heart-fill]="isFavori(pollution.id)" [class.bi-heart]="!isFavori(pollution.id)"></i>
                   </button>
+
                 </div>
 
               </div>

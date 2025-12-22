@@ -11,6 +11,8 @@ import { Pollution } from '../../models/pollution.model';
 import { AddFavori, RemoveFavori } from '../../../shared/actions/favoris-action';
 import { FavorisState } from '../../../shared/states/favoris-state';
 
+import { AuthService } from '../../../shared/services/auth.service';
+
 @Component({
   selector: 'app-liste-pollutions',
   standalone: true,
@@ -34,7 +36,8 @@ export class PollutionList implements OnInit {
 
   constructor(
     private pollutionService: PollutionService,
-    private store: Store
+    private store: Store,
+    public authService: AuthService
   ) {
     this.favorisIds = toSignal(
       this.store.select(FavorisState.getFavoris).pipe(
