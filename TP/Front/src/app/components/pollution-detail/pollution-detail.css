@@ -1,0 +1,22 @@
+.card {
+  background-color: #ffffff; /* blanc */
+  font-family: 'Poppins', sans-serif;
+}
+
+.card-header h2 {
+  font-weight: 600;
+}
+
+.card-footer .btn {
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-footer .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+img.rounded {
+  border-radius: 1rem;
+}

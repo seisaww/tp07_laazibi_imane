@@ -1,0 +1,58 @@
+<div class="page-container min-vh-100 py-5">
+  <div class="container">
+
+    <div class="text-center mb-5 animate-fade-in">
+      <div class="icon-circle mb-3">
+        <i class="bi bi-people-fill text-success fs-2"></i>
+      </div>
+      <h2 class="text-success fw-bold">La Communauté</h2>
+      <p class="text-muted">Liste des utilisateurs inscrits sur Pollusite</p>
+    </div>
+
+    @if (isLoading) {
+      <div class="d-flex flex-column align-items-center justify-content-center py-5">
+        <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="text-muted mt-3 fw-bold animate-pulse">Récupération des données...</p>
+      </div>
+    } 
+
+     @else {
+
+    <div class="row g-4 justify-content-center">
+      @for (user of utilisateurs; track user.id) {
+        <div class="col-md-6 col-lg-4 animate-fade-in">
+          <div class="card user-card h-100 shadow border-0 rounded-4">
+            
+            <div class="card-body p-4 text-center d-flex flex-column align-items-center">
+              
+              <div class="avatar-placeholder mb-3 shadow-sm">
+                <span class="initials">{{ user.prenom.charAt(0) }}{{ user.nom.charAt(0) }}</span>
+              </div>
+
+              <h5 class="card-title fw-bold text-dark mb-1">
+                {{ user.prenom }} {{ user.nom }}
+              </h5>
+              
+              <span class="badge bg-light text-secondary border rounded-pill px-3 py-2 mt-2">
+                <i class="bi bi-at text-success"></i> {{ user.identifiant }}
+              </span>
+
+            </div>
+          </div>
+        </div>
+      } 
+      
+      @empty {
+        <div class="text-center py-5 animate-fade-in">
+          <div class="mb-3 text-muted opacity-50">
+            <i class="bi bi-person-slash fs-1"></i>
+          </div>
+          <h5 class="text-muted">Aucun utilisateur inscrit pour le moment.</h5>
+        </div>
+      }
+    </div>
+  }
+  </div>
+</div>

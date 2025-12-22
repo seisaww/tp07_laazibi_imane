@@ -1,0 +1,69 @@
+<header class="main-header">
+  <a routerLink="/" class="nav-logo d-flex align-items-center text-decoration-none">
+    <h3 class="m-0">Pollusite</h3>
+  </a>
+
+  <nav class="d-flex align-items-center">
+    <ul class="nav d-flex gap-3 m-0">
+
+      <li class="nav-item dropdown">
+        <span class="nav-link cursor-pointer">
+          <i class="bi bi-globe-americas"></i> Pollutions <i class="bi bi-chevron-down ms-1" style="font-size: 0.8em;"></i>
+        </span>
+        <ul class="dropdown-menu">
+          <li>
+            <a routerLink="/pollutions/liste" routerLinkActive="active-dropdown-item">
+              Voir la liste
+            </a>
+          </li>
+          <li>
+            <a routerLink="/pollutions/formulaire" routerLinkActive="active-dropdown-item">
+              Signaler une pollution
+            </a>
+          </li>
+          <li>
+            <a routerLink="/favoris" routerLinkActive="active-dropdown-item" class="d-flex justify-content-between align-items-center">
+              Mes Favoris
+              @if (favorisCount() > 0) {
+                <span class="badge-favoris">{{ favorisCount() }}</span>
+              }
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <span class="nav-link cursor-pointer">
+          <i class="bi bi-person me-1"></i> 
+          {{ connexion() ? user()?.prenom : 'Mon Compte' }} 
+          <i class="bi bi-chevron-down ms-1" style="font-size: 0.8em;"></i>
+        </span>
+
+        <ul class="dropdown-menu">
+          @if (!connexion()) {
+            <li>
+              <a routerLink="/login" routerLinkActive="active-dropdown-item">Connexion</a>
+            </li>
+            <li>
+              <a routerLink="/inscription" routerLinkActive="active-dropdown-item">Inscription</a>
+            </li>
+          } @else {
+            <li>
+              <a class="dropdown-item cursor-pointer text-danger" (click)="logout()">
+                <i class="bi bi-box-arrow-left me-2"></i>Déconnexion
+              </a>
+            </li>
+          }
+
+          <hr class="dropdown-divider"> 
+          <li>
+            <a routerLink="/inscription-list" routerLinkActive="active-dropdown-item"> 
+              <i class="bi bi-people"> Voir les utilisateurs</i> 
+            </a>
+          </li>
+        </ul>
+      </li>
+
+    </ul>
+  </nav>
+</header>

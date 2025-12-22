@@ -1,0 +1,12 @@
+.card {
+  font-family: 'Poppins', sans-serif;
+}
+
+.card-body p {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.img-fluid {
+  border-radius: 0.75rem;
+}

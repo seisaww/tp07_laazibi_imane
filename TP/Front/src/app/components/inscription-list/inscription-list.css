@@ -1,0 +1,21 @@
+.card {
+  border: 2px solid #198754; 
+  border-radius: 1rem;       
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #ffffff;  
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card-title {
+  font-family: 'Poppins', sans-serif; 
+  font-weight: 600;
+}
+
+.card-text {
+  color: #212529;
+  font-weight: 500;
+}

@@ -1,0 +1,67 @@
+<div class="page-container d-flex justify-content-center align-items-center min-vh-100 py-4">
+  <div class="card shadow-lg border-0 rounded-4 animate-fade-in" style="max-width: 500px; width: 100%;">
+    
+    <div class="text-center pt-4 pb-2">
+      <div class="icon-circle mb-2">
+        <i class="bi bi-person-plus-fill text-success fs-2"></i>
+      </div>
+      <h2 class="text-success fw-bold m-0">Créer un compte</h2>
+      <p class="text-muted small">Rejoignez la communauté Pollusite</p>
+    </div>
+
+    <div class="card-body p-4 pt-2">
+      <form [formGroup]="formulaire" (ngSubmit)="send()" class="needs-validation">
+
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label fw-bold text-secondary small">Nom</label>
+            <input formControlName="nom" class="form-control rounded-3 bg-light border-light" placeholder="Dupont">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-bold text-secondary small">Prénom</label>
+            <input formControlName="prenom" class="form-control rounded-3 bg-light border-light" placeholder="Jean">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-bold text-secondary small">Identifiant</label>
+          <div class="input-group">
+            <span class="input-group-text bg-white border-end-0 rounded-start-3 text-muted"><i class="bi bi-at"></i></span>
+            <input formControlName="identifiant" class="form-control border-start-0 rounded-end-3" placeholder="jean.dupont">
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label fw-bold text-secondary small">Mot de passe</label>
+          <div class="input-group mb-2">
+            <span class="input-group-text bg-white border-end-0 rounded-start-3 text-muted"><i class="bi bi-lock"></i></span>
+            <input formControlName="motDePasse" type="password" class="form-control border-start-0 rounded-end-3" placeholder="••••••••">
+          </div>
+          
+          <div class="bg-light p-2 rounded-3 border border-light-subtle">
+            <small class="text-muted d-block mb-1" style="font-size: 0.75rem;">
+              <i class="bi bi-info-circle me-1"></i> Le mot de passe doit contenir :
+            </small>
+            <ul class="list-unstyled m-0 text-muted d-flex flex-wrap gap-2" style="font-size: 0.7rem;">
+              <li><i class="bi bi-check2-circle text-success"></i> 8 caractères</li>
+              <li><i class="bi bi-check2-circle text-success"></i> 1 Majuscule</li>
+              <li><i class="bi bi-check2-circle text-success"></i> 1 Chiffre</li>
+              <li><i class="bi bi-check2-circle text-success"></i> 1 Spécial ($@!%*?&)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="d-grid mb-3">
+          <button type="submit" class="btn btn-success btn-lg rounded-pill shadow-sm fw-bold" [disabled]="formulaire.invalid">
+            S'inscrire
+          </button>
+        </div>
+
+        <div class="text-center">
+          <small class="text-muted">Déjà un compte ? <a routerLink="/login" class="text-success text-decoration-none fw-bold">Se connecter</a></small>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

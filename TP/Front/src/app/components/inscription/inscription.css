@@ -1,0 +1,36 @@
+.bg-lightgreen {
+  background-color: #ffffff; 
+}
+
+.card {
+  border: none;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25); 
+}
+
+.btn-success {
+  background-color: #198754;
+  border-color: #198754;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.btn-success:hover {
+  background-color: #1fa769;
+  transform: translateY(-2px);
+}
+
+.btn-outline-success {
+  border-color: #198754;
+  color: #198754;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-outline-success:hover {
+  background-color: #ffffff;
+  color: #ffffff;
+  transform: translateY(-2px);
+}

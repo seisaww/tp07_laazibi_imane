@@ -1,0 +1,81 @@
+<div class="page-container min-vh-100 py-5">
+  <div class="container">
+
+    <div class="text-center mb-5 animate-fade-in">
+      <div class="icon-circle mb-3">
+        <i class="bi bi-star-fill text-warning fs-2"></i>
+      </div>
+      <h2 class="text-dark fw-bold">Mes Favoris <span class="badge bg-warning text-dark rounded-pill align-middle fs-6 ms-2">{{ favorisCount() }}</span></h2>
+      <p class="text-muted">Vos signalements sauvegardés</p>
+    </div>
+
+    @if (favorisCount() > 0) {
+      
+      <div class="d-flex justify-content-end mb-4 animate-fade-in">
+        <button class="btn btn-outline-danger rounded-pill px-3 btn-sm" (click)="clearAllFavoris()">
+          <i class="bi bi-trash me-1"></i> Tout supprimer
+        </button>
+      </div>
+
+      <div class="row g-4">
+        @for (pollution of favoris(); track pollution.id) {
+          <div class="col-md-6 col-lg-4 animate-fade-in">
+            <div class="card favori-card h-100 shadow border-0 rounded-4">
+              
+              <div class="card-body p-4 d-flex flex-column">
+                
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <span class="badge bg-warning-subtle text-warning-emphasis rounded-pill px-3 py-2 text-uppercase ls-1">
+                    {{ pollution.type_pollution }}
+                  </span>
+                  
+                  <button 
+                    class="btn btn-sm btn-icon-remove rounded-circle"
+                    (click)="removeFavori(pollution.id)"
+                    title="Retirer des favoris">
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+
+                <!-- Contenu -->
+                <h5 class="card-title fw-bold text-dark mb-2">{{ pollution.titre }}</h5>
+                <p class="text-muted small mb-4 flex-grow-1">
+                  <i class="bi bi-geo-alt-fill text-warning me-1"></i> {{ pollution.lieu }}
+                  <br>
+                  <span class="mt-2 d-inline-block text-secondary">
+                    <i class="bi bi-calendar3 me-1"></i> {{ pollution.date_observation | date:'dd/MM/yyyy' }}
+                  </span>
+                </p>
+
+                <!-- Actions -->
+                <div class="pt-3 border-top border-light text-center">
+                  <button class="btn btn-warning rounded-pill w-100 fw-bold text-dark" [routerLink]="['/pollutions/detail', pollution.id]">
+                    Voir les détails <i class="bi bi-arrow-right ms-1"></i>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+    } @else {
+      
+      <div class="text-center py-5 animate-fade-in">
+        <div class="mb-4 opacity-50">
+          <i class="bi bi-star text-warning" style="font-size: 5rem;"></i>
+        </div>
+        <h3 class="text-muted fw-bold mb-3">Aucun favori pour le moment</h3>
+        <p class="text-muted mb-4 col-md-6 mx-auto">
+          Vous n'avez pas encore ajouté de signalement à vos favoris. Parcourez la liste pour en sélectionner.
+        </p>
+        <button class="btn btn-success rounded-pill px-4 py-2 fw-bold" routerLink="/pollutions/liste">
+          <i class="bi bi-search me-2"></i> Explorer les signalements
+        </button>
+      </div>
+      
+    }
+
+  </div>
+</div>

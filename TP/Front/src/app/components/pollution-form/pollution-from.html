@@ -1,0 +1,96 @@
+<div class="page-container d-flex justify-content-center align-items-center min-vh-100 py-5">
+  
+  @if (!pollutionPourRecap) {
+    
+    <div class="card shadow-lg border-0 rounded-4 animate-fade-in" style="max-width: 700px; width: 100%;">
+      
+      <div class="card-header bg-success bg-opacity-10 py-3 rounded-top-4 border-0">
+        <h2 class="text-success text-center m-0 fw-bold fs-3">
+          <i class="bi bi-megaphone me-2"></i>Déclaration pollution
+        </h2>
+      </div>
+
+      <div class="card-body p-4 p-md-5">
+        <form [formGroup]="formulaire" (ngSubmit)="send()" class="needs-validation">
+
+          <div class="mb-4">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Titre du signalement</label>
+            <input formControlName="titre" class="form-control form-control-lg rounded-pill border-success-subtle bg-light" placeholder="Ex: Déchets plastiques plage...">
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label class="form-label fw-bold text-secondary small text-uppercase">Type</label>
+              <select formControlName="type_pollution" class="form-select rounded-pill border-success-subtle">
+                <option value="" selected disabled>Sélectionner...</option>
+                <option>Plastique</option>
+                <option>Chimique</option>
+                <option>Dépôt sauvage</option>
+                <option>Eau</option>
+                <option>Air</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-bold text-secondary small text-uppercase">Date</label>
+              <input type="date" formControlName="date_observation" class="form-control rounded-pill border-success-subtle">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Lieu</label>
+            <div class="input-group">
+              <span class="input-group-text rounded-start-pill border-success-subtle bg-white text-success"><i class="bi bi-geo-alt"></i></span>
+              <input formControlName="lieu" class="form-control rounded-end-pill border-success-subtle" placeholder="Adresse ou lieu-dit">
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3 bg-light p-3 rounded-4 mx-0 border border-light-subtle">
+            <div class="col-12 text-muted small fst-italic mb-1">Coordonnées GPS</div>
+            <div class="col-md-6">
+              <input formControlName="latitude" type="number" class="form-control rounded-pill border-success-subtle" placeholder="Latitude (ex: 48.85)">
+            </div>
+            <div class="col-md-6">
+              <input formControlName="longitude" type="number" class="form-control rounded-pill border-success-subtle" placeholder="Longitude (ex: 2.35)">
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Détails</label>
+            <textarea formControlName="description" class="form-control rounded-4 border-success-subtle" rows="3" placeholder="Décrivez la situation..."></textarea>
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Photo (URL)</label>
+            <input formControlName="photo_url" class="form-control rounded-pill border-success-subtle" placeholder="https://...">
+          </div>
+
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-success btn-lg rounded-pill shadow-sm" [disabled]="formulaire.invalid">
+              Envoyer le signalement <i class="bi bi-send-fill ms-2"></i>
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  } @else {
+    
+    <div class="w-100 animate-fade-in">
+      
+      <div class="text-center mb-3">
+        <button class="btn btn-outline-secondary btn-sm rounded-pill" (click)="pollutionPourRecap = null">
+          <i class="bi bi-arrow-left"></i> Faire un autre signalement
+        </button>
+      </div>
+
+      <h4 class="text-center text-success mb-3 fw-bold">Signalement enregistré !</h4>
+      
+      <app-pollution-recap [pollution]="pollutionPourRecap"></app-pollution-recap>
+      
+    </div>
+
+  }
+
+</div>

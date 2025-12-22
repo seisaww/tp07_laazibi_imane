@@ -1,0 +1,124 @@
+<div class="page-container min-vh-100 py-5">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <div class="icon-circle mb-3">
+        <i class="bi bi-list-check text-success fs-2"></i>
+      </div>
+      <h2 class="text-success fw-bold">Liste des signalements</h2>
+      <p class="text-muted">Retrouvez et filtrez les pollutions signalées</p>
+    </div>
+
+    @if (isLoading) {
+      <div class="d-flex flex-column align-items-center justify-content-center py-5">
+        <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="text-muted mt-3 fw-bold animate-pulse">Récupération des données...</p>
+      </div>
+    } 
+    
+    @else {
+
+      <div class="card shadow-sm border-0 rounded-4 mb-5 p-4 filter-bar animate-fade-in">
+        <div class="row g-3">
+          
+          <div class="col-md-4">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Type</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 rounded-start-pill text-muted"><i class="bi bi-funnel"></i></span>
+              <select 
+                class="form-select border-start-0 rounded-end-pill border-light bg-light" 
+                [(ngModel)]="filterCriteria.type" 
+                (ngModelChange)="applyFilters()">
+                <option value="">Tous les types</option>
+                <option>Plastique</option>
+                <option>Chimique</option>
+                <option>Dépôt sauvage</option>
+                <option>Eau</option>
+                <option>Air</option>
+                <option>Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Lieu</label>
+            <div class="input-group">
+              <span class="input-group-text bg-light border-end-0 rounded-start-pill text-muted"><i class="bi bi-geo-alt"></i></span>
+              <input 
+                type="text" 
+                class="form-control border-start-0 rounded-end-pill border-light bg-light" 
+                placeholder="Ville, rue..." 
+                [(ngModel)]="filterCriteria.lieu" 
+                (ngModelChange)="applyFilters()">
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <label class="form-label fw-bold text-secondary small text-uppercase">Date</label>
+            <input 
+              type="date" 
+              class="form-control rounded-pill border-light bg-light" 
+              [(ngModel)]="filterCriteria.date" 
+              (ngModelChange)="applyFilters()">
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        @for (pollution of filteredPollutions; track pollution.id) {
+          <div class="col-md-6 col-lg-4 animate-fade-in">
+            <div class="card pollution-card h-100 shadow border-0 rounded-4">
+              
+              <div class="card-body p-4 d-flex flex-column">
+                
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <span class="badge bg-success-subtle text-success rounded-pill px-3 py-2 text-uppercase" style="font-size: 0.7rem; letter-spacing: 0.5px;">
+                    {{ pollution.type_pollution }}
+                  </span>
+                  <small class="text-muted" style="font-size: 0.8rem;">
+                    <i class="bi bi-calendar3 me-1"></i> {{ pollution.date_observation | date:'dd/MM' }}
+                  </small>
+                </div>
+
+                <h5 class="card-title fw-bold text-dark mb-2">{{ pollution.titre }}</h5>
+                <p class="text-muted small mb-4 flex-grow-1">
+                  <i class="bi bi-geo-alt-fill text-success me-1"></i> {{ pollution.lieu }}
+                </p>
+
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                  
+                  <button class="btn btn-outline-success rounded-pill btn-sm fw-bold px-3" [routerLink]="['/pollutions/detail', pollution.id]">
+                    Voir détails
+                  </button>
+                  
+                  <button 
+                    class="btn btn-icon rounded-circle"
+                    [class.active-heart]="isFavori(pollution.id)"
+                    (click)="toggleFavori(pollution, $event)"
+                    [title]="isFavori(pollution.id) ? 'Retirer des favoris' : 'Ajouter aux favoris'">
+                    <i class="bi" [class.bi-heart-fill]="isFavori(pollution.id)" [class.bi-heart]="!isFavori(pollution.id)"></i>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      @if (filteredPollutions.length === 0) {
+        <div class="text-center py-5 animate-fade-in">
+          <div class="mb-3 text-muted opacity-50">
+            <i class="bi bi-search fs-1"></i>
+          </div>
+          <h5 class="text-muted">Aucune pollution ne correspond à vos critères.</h5>
+          <button class="btn btn-link text-success text-decoration-none" (click)="resetFilters()">Réinitialiser les filtres</button>
+        </div>
+      }
+
+    }
+
+  </div>
+</div>

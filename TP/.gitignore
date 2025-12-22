@@ -1,0 +1,68 @@
+# =============================
+# Fichiers et dossiers d'IDE
+# =============================
+.vs/
+*.sln
+*.csproj.user
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.DotSettings
+*.resharper
+*.ncrunch*
+_ReSharper*/
+*.DotSettings.user
+
+# =============================
+# Fichiers binaires / debug / release
+# =============================
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+*.exe
+*.dll
+*.pdb
+*.ilk
+*.log
+*.idb
+*.out
+*.o
+
+# =============================
+# Packages et dépendances NuGet
+# =============================
+node_modules/
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# =============================
+# Fichiers temporaires / sauvegarde
+# =============================
+*~
+*.tmp
+*.bak
+*.swp
+
+# =============================
+# Test unitaire et coverage
+# =============================
+TestResults/
+*.TestResults.xml
+*.coverage
+*.coveragexml
+*.trx
+
+# =============================
+# Autres dossiers à ignorer
+# =============================
+Properties/
+_ReSharper*/
+*.resharper.user
