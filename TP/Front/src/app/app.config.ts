@@ -23,7 +23,7 @@
         withNgxsStoragePlugin({
           keys: [
             'favoris',            
-            'auth.refreshToken',  
+             //'auth.refreshToken',  
             'auth.user'           
           ]
         })

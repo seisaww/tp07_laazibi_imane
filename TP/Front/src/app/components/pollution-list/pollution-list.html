@@ -6,7 +6,72 @@
         <i class="bi bi-list-check text-success fs-2"></i>
       </div>
       <h2 class="text-success fw-bold">Liste des signalements</h2>
-      <p class="text-muted">Retrouvez et filtrez les pollutions signalées</p>
+      <p class="text-muted">Recherchez et filtrez les pollutions signalées</p>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+      <div class="col-md-8">
+        <div class="input-group input-group-lg shadow-sm rounded-pill overflow-hidden">
+          <span class="input-group-text bg-white border-0 ps-4"><i class="bi bi-search text-success"></i></span>
+          <input 
+            [formControl]="searchControl" 
+            type="text" 
+            class="form-control border-0 py-3" 
+            placeholder="Recherche globale par titre (Ex: Bouteille)..."
+          >
+        </div>
+        <div class="text-center mt-2">
+            <small class="text-muted fst-italic" style="font-size: 0.8rem;">
+                Recherche dynamique automatique
+            </small>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 mb-5 p-4 filter-bar animate-fade-in">
+      <div class="row g-3">
+        
+        <div class="col-md-4">
+          <label class="form-label fw-bold text-secondary small text-uppercase">Type</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 rounded-start-pill text-muted"><i class="bi bi-funnel"></i></span>
+            <select 
+              class="form-select border-start-0 rounded-end-pill border-light bg-light" 
+              [(ngModel)]="filterCriteria.type" 
+              (ngModelChange)="applyFilters()">
+              <option value="">Tous les types</option>
+              <option>Plastique</option>
+              <option>Chimique</option>
+              <option>Dépôt sauvage</option>
+              <option>Eau</option>
+              <option>Air</option>
+              <option>Autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold text-secondary small text-uppercase">Lieu</label>
+          <div class="input-group">
+            <span class="input-group-text bg-light border-end-0 rounded-start-pill text-muted"><i class="bi bi-geo-alt"></i></span>
+            <input 
+              type="text" 
+              class="form-control border-start-0 rounded-end-pill border-light bg-light" 
+              placeholder="Ville, rue..." 
+              [(ngModel)]="filterCriteria.lieu" 
+              (ngModelChange)="applyFilters()">
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-bold text-secondary small text-uppercase">Date</label>
+          <input 
+            type="date" 
+            class="form-control rounded-pill border-light bg-light" 
+            [(ngModel)]="filterCriteria.date" 
+            (ngModelChange)="applyFilters()">
+        </div>
+      </div>
     </div>
 
     @if (isLoading) {
@@ -14,63 +79,20 @@
         <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
           <span class="visually-hidden">Chargement...</span>
         </div>
-        <p class="text-muted mt-3 fw-bold animate-pulse">Récupération des données...</p>
+        <p class="text-muted mt-3 fw-bold animate-pulse">Recherche en cours...</p>
       </div>
     } 
     
     @else {
-
-      <div class="card shadow-sm border-0 rounded-4 mb-5 p-4 filter-bar animate-fade-in">
-        <div class="row g-3">
-          
-          <div class="col-md-4">
-            <label class="form-label fw-bold text-secondary small text-uppercase">Type</label>
-            <div class="input-group">
-              <span class="input-group-text bg-light border-end-0 rounded-start-pill text-muted"><i class="bi bi-funnel"></i></span>
-              <select 
-                class="form-select border-start-0 rounded-end-pill border-light bg-light" 
-                [(ngModel)]="filterCriteria.type" 
-                (ngModelChange)="applyFilters()">
-                <option value="">Tous les types</option>
-                <option>Plastique</option>
-                <option>Chimique</option>
-                <option>Dépôt sauvage</option>
-                <option>Eau</option>
-                <option>Air</option>
-                <option>Autre</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <label class="form-label fw-bold text-secondary small text-uppercase">Lieu</label>
-            <div class="input-group">
-              <span class="input-group-text bg-light border-end-0 rounded-start-pill text-muted"><i class="bi bi-geo-alt"></i></span>
-              <input 
-                type="text" 
-                class="form-control border-start-0 rounded-end-pill border-light bg-light" 
-                placeholder="Ville, rue..." 
-                [(ngModel)]="filterCriteria.lieu" 
-                (ngModelChange)="applyFilters()">
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <label class="form-label fw-bold text-secondary small text-uppercase">Date</label>
-            <input 
-              type="date" 
-              class="form-control rounded-pill border-light bg-light" 
-              [(ngModel)]="filterCriteria.date" 
-              (ngModelChange)="applyFilters()">
-          </div>
-        </div>
-      </div>
-
       <div class="row g-4">
         @for (pollution of filteredPollutions; track pollution.id) {
           <div class="col-md-6 col-lg-4 animate-fade-in">
             <div class="card pollution-card h-100 shadow border-0 rounded-4">
               
+               @if (pollution.photo_url) {
+                <img [src]="pollution.photo_url" class="card-img-top" style="height: 200px; object-fit: cover; border-top-left-radius: 1rem; border-top-right-radius: 1rem;">
+              }
+
               <div class="card-body p-4 d-flex flex-column">
                 
                 <div class="d-flex justify-content-between align-items-start mb-3">
@@ -83,13 +105,16 @@
                 </div>
 
                 <h5 class="card-title fw-bold text-dark mb-2">{{ pollution.titre }}</h5>
-                <p class="text-muted small mb-4 flex-grow-1">
-                  <i class="bi bi-geo-alt-fill text-success me-1"></i> {{ pollution.lieu }}
+                <p class="text-muted small mb-4 flex-grow-1 text-truncate">
+                   {{ pollution.description }}
+                </p>
+                <p class="text-muted small mb-2">
+                    <i class="bi bi-geo-alt-fill text-success me-1"></i> {{ pollution.lieu }}
                 </p>
 
-                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light">
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top border-light mt-auto">
                   
-                  <button class="btn btn-outline-success rounded-pill btn-sm fw-bold px-3" [routerLink]="['/pollutions/detail', pollution.id]">
+                  <button class="btn btn-outline-success rounded-pill btn-sm fw-bold px-3" [routerLink]="['/pollutions', pollution.id]">
                     Voir détails
                   </button>
                   
@@ -117,10 +142,9 @@
             <i class="bi bi-search fs-1"></i>
           </div>
           <h5 class="text-muted">Aucune pollution ne correspond à vos critères.</h5>
-          <button class="btn btn-link text-success text-decoration-none" (click)="resetFilters()">Réinitialiser les filtres</button>
+          <button class="btn btn-link text-success text-decoration-none" (click)="resetFilters()">Réinitialiser tout</button>
         </div>
       }
-
     }
 
   </div>

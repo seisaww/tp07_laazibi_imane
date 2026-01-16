@@ -14,7 +14,11 @@ export class PollutionService {
 
   constructor(private http: HttpClient) { }
 
-
+  searchPollutions(query: string): Observable<Pollution[]> {
+    const url = `${this.apiUrl}?titre=${encodeURIComponent(query)}`;
+    return this.http.get<Pollution[]>(url);
+  }
+    
   getPollutions(): Observable<Pollution[]> {
     return this.http.get<Pollution[]>(this.apiUrl);
   }

@@ -64,7 +64,7 @@ export class Login implements OnInit {
 
     this.authService.login(identifiant, motDePasse).subscribe({
       next: (response: any) => {
-        localStorage.setItem('token', response.accessToken); 
+        // localStorage.setItem('token', response.accessToken); 
 
         this.store.dispatch(new AuthConnexion({
           accessToken: response.accessToken,
@@ -81,7 +81,7 @@ export class Login implements OnInit {
   }
   
   logout() {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
     this.store.dispatch(new AuthDeconnexion());
     this.router.navigate(['/login']); 
   }
